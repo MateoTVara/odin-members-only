@@ -55,13 +55,18 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async (id, done) => {
   try {
-    const user = users.getUserById(id);
+    const user = await users.getUserById(id);
     done(null, user); 
   } catch (error) {
-    done(err);
+    done(error);
   }
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send('Something went wrong!');
 });
 
 const indexRouter = require('./routes/indexRouter');

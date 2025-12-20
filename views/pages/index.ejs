@@ -1,0 +1,7 @@
+<h1><%= title %></h1>
+<p>Views: <%= views %></p>
+<p>User: <%= user ? user.username : 'Guest' %></p>
+<a href="/auth">Login / Sign Up</a>
+<% if (user) { %>
+  <a href="/logout">Logout</a>
+<% } %>
