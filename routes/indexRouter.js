@@ -10,5 +10,7 @@ indexRouter.post('/sign-up', indexController.postSignUp);
 indexRouter.post('/login', indexController.postLogin);
 indexRouter.get('/logout', indexController.getLogout);
 indexRouter.get('/new-message', authNeeded, indexController.getNewMessage);
+indexRouter.get('/join', authNeeded, indexController.getJoin);
+indexRouter.post('/join', authNeeded, indexController.postJoin);
 
 module.exports = indexRouter;

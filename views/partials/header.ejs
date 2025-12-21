@@ -1,8 +1,9 @@
 <header>
-  <h1>Members <span>Only</span></h1>
+  <h1><a href="/">Members <span>Only</span></a></h1>
   <% if (!user) { %>
     <a href="/auth">Login</a>
   <% } else { %>
+    <a href="/join">Join the club!</a>
     <a href="/logout">Logout</a>
   <% } %>
 </header>

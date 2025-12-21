@@ -1,0 +1,15 @@
+<%- include('../partials/header', { user }) %>
+<%- include('../partials/errors', { errors }) %>
+<% if (user.is_admin) { %>
+  <p>You are already an admin!</p>
+<% } else if (user.is_member) { %>
+  <p>You are already a member!</p>
+<% } else { %>
+  <form action="/join" method="POST">
+    <div>
+      <label for="passcode">Passcode:</label>
+      <input type="text" id="passcode" name="passcode" placeholder="____ member" required>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+<% } %>

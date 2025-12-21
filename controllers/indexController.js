@@ -1,8 +1,13 @@
+const { env } = require('node:process');
 const { body, validationResult, matchedData } = require('express-validator');
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const users = require('../db/queries/usersQueries');
 const messages = require('../db/queries/messagesQueries');
+
+require('dotenv').config();
+
+const { MEMBER_PASSCODE, ADMIN_PASSCODE } = env;
 
 const validateUser = [
   body('first_name').trim()
@@ -18,7 +23,13 @@ const validateUser = [
   body('confirm_password').trim()
     .isLength({ min: 1, max: 255 }).withMessage('Confirm password must be between 1 and 255 characters')
     .custom((value, { req }) => value === req.body.password).withMessage('Passwords do not match')
-]
+];
+
+const validatePasscode = [
+  body('passcode').trim()
+    .isLength({ min: 1 }).withMessage('Passcode is required')
+    .isLength({ max: 20 }).withMessage('Passcode must be less than 20 characters')
+];
 
 const getIndex = async (req, res, next) => {
   try {
@@ -129,6 +140,53 @@ const getNewMessage = (req, res, next) => {
   }
 }
 
+const getJoin = (req, res, next) => {
+  try {
+    res.render('pages/join', {
+      title: 'Join The Club!',
+    })
+  } catch (error) {
+    next(error);
+  }
+}
+
+const postJoin = [
+  validatePasscode,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render('pages/join', {
+        title: 'New Message',
+        errors: errors.array(),
+      });
+    }
+    
+    const { passcode } = matchedData(req)
+
+    try {
+      const userId = req.user.id;
+      
+      if (![MEMBER_PASSCODE, ADMIN_PASSCODE].includes(passcode)) {
+        return res.status(400).render('pages/join', {
+          title: 'New Message',
+          errors: [{ msg: 'Wrong passcode' }],
+        });
+      }
+      
+      let user;
+      if (passcode === MEMBER_PASSCODE) {
+        await users.makeMember(userId);
+      } else if (passcode === ADMIN_PASSCODE) {
+        await users.makeAdmin(userId);
+      }
+
+      res.redirect('/');
+    } catch (error) {
+      next(error);
+    }
+  }
+]
+
 module.exports = {
   getIndex,
   getAuth,
@@ -136,4 +194,6 @@ module.exports = {
   postLogin,
   getLogout,
   getNewMessage,
+  getJoin,
+  postJoin,
 }

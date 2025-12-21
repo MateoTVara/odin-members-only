@@ -40,8 +40,36 @@ const insert = async ({ first_name, last_name, username, password }) => {
   return user;
 }
 
+/**
+ * Make a user a member
+ * @param {number} userId - User ID
+ * @returns {Promise<Object>} Promise that resolves to the updated user
+ */
+const makeMember = async (userId) => {
+  const query = 'UPDATE users SET is_member = TRUE WHERE id = $1 RETURNING *';
+  const values = [userId];
+  const { rows:[user] } = await pool.query(query, values);
+  return user;
+}
+
+/**
+ * Make a user an admin
+ * @param {number} userId - User ID
+ * @returns {Promise<Object>} Promise that resolves to the updated user
+ */
+const makeAdmin = async (userId) => {
+  await makeMember(userId);
+  const query = 'UPDATE users SET is_admin = TRUE WHERE id = $1 RETURNING *';
+  const values = [userId];
+  const { rows:[user] } = await pool.query(query, values);
+  return user;
+}
+
 module.exports = {
   getUserById,
   getUserByUsername,
   insert,
+
+  makeMember,
+  makeAdmin,
 }
