@@ -33,12 +33,10 @@ const validatePasscode = [
 
 const getIndex = async (req, res, next) => {
   try {
-    req.session.views = (req.session.views ?? 0) + 1;
     const msgs = req.isMember ? await messages.getAllWithAuthorsNames() : await messages.getAll();
 
     res.render('pages/index', {
       title: 'Home Page',
-      views: req.session.views,
       msgs,
     });
   } catch (error) {

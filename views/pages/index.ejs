@@ -1,31 +1,57 @@
 <%- include('../partials/header', { user }) %>
 <%- include('../partials/errors', { errors }) %>
-<p>Views: <%= views %></p>
-<p>User: <%= user ? `${user.first_name} ${user.last_name}` : 'Guest' %></p>
 
 <main>
-  <h2>Messages</h2>
-  <% if (msgs.length === 0) { %>
-    <p>No messages yet.</p>
-  <% } else { %>
-    <ul>
-      <% msgs.forEach((msg) => { %>
-        <li>
-          <% if (user && user.is_admin) { %>
-            <form action="/messages/<%= msg.id %>/delete" method="POST">
-              <button type="submit">X</button>
-            </form>
-          <% } %>
-          <strong><%= msg.title %></strong>
-          <p><%= msg.message %></p>
-          <p>From <em><%= typeof msg.author_fullname !== 'undefined' ? msg.author_fullname : 'Anonymous' %></em></p>
-          <p>Posted on <em><%= msg.created_at.toLocaleString() %></em></p>
-        </li>
-      <% }); %>
-    </ul>
-  <% } %>
+  <div class="messages">
+    <div class="messages-header">
+      <h2>Messages</h2>
+      <% if (user) { %>
+        <a class="new-message-button" href="/new-message">New Message</a>
+      <% } %>
+    </div>
+    <div class="message-list">
+      <% if (msgs.length === 0) { %>
+        <p class="no-messages">No messages yet.</p>
+      <% } else { %>
+        <ul class="messages-ul">
+          <% msgs.forEach((msg) => { %>
+            <li class="message-li">
+              <div class="message-content">
+                <strong class="message-title"><%= msg.title %></strong>
+                <p class="message-meta">
+                  <%=
+                    typeof msg.author_fullname !== 'undefined' ?
+                    `${msg.author_fullname} • ${format(msg.created_at, "MMMM d, yyyy")}` : 
+                    'Anonymous'
+                  %>
+                </p>
+                <p class="message-text"><%= msg.message %></p>
+              </div>
+              <% if (user && user.is_admin) { %>
+                <form class="message-delete-form" action="/messages/<%= msg.id %>/delete" method="POST">
+                  <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                      <title>trash-can-outline</title>
+                      <path d="
+                        M9,
+                        3V4H4V6H5V19A2,
+                        2 0 0,0 7,
+                        21H17A2,
+                        2 0 0,
+                        0 19,
+                        19V6H20V4H15V3H9M7,
+                        6H17V19H7V6M9,
+                        8V17H11V8H9M13,
+                        8V17H15V8H13Z"
+                      />
+                    </svg>
+                  </button>
+                </form>
+              <% } %>
+            </li>
+          <% }); %>
+        </ul>
+    </div>
+    <% } %>
+  </div>
 </main>
-
-<% if (user) { %>
-  <a href="/new-message">New Message</a>
-<% } %>

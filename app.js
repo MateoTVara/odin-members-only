@@ -1,5 +1,5 @@
-const path = require('node:path');
-const { env } = require('node:process')
+const { format } = require('date-fns');
+const { env } = require('node:process');
 const express = require('express');
 const expressSession = require('express-session');
 const pgSession = require('connect-pg-simple')(expressSession);
@@ -33,9 +33,12 @@ app.use(expressSession({
 }));
 app.use(passport.session());
 
+app.use(express.static('public'));
+
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
+  res.locals.format = format;
   res.locals.user = req.user;
   res.locals.errors = req.session.errors || [];
   delete req.session.errors;

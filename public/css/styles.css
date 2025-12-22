@@ -1,0 +1,144 @@
+@import url('./reset.css');
+@import url('./vars.css');
+@import url('./header.css');
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+main {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.messages {
+  background-color: var(--color-surface);
+  padding: 12px 28px 20px;
+  margin-block: 48px;
+  border: var(--color-border) 1px solid;
+  border-radius: 16px;
+  width: 1200px;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 8px;
+  margin-bottom: 12px;
+
+  & > h2 {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  & > a {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 16px;
+    background-color: var(--color-bg);
+    border: var(--color-border) 1px solid;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    will-change: transform;
+    transition: transform 0.1s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.no-messages {
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  font-size: 20px;
+}
+
+.messages-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message-li {
+  display: flex;
+  align-items: center;
+  border: var(--color-border) 1px solid;
+  border-radius: 12px;
+  padding: 16px 24px;
+  background-color: var(--color-surface-2);
+  position: relative;
+}
+
+.message-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  & > .message-title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  & > .message-meta {
+    font-size: 16px;
+    color: var(--color-muted);
+  }
+
+  & > .message-text {
+    font-size: 19px;
+    line-height: 1.4;
+  }
+}
+
+.message-delete-form {
+  flex: 0 0 auto;
+  display: inline;
+
+  & > button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  & > button svg {
+    color: white;
+    width: 20px;
+    height: 20px;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+
+  & > button:hover svg {
+    color: var(--color-danger);
+    transform: scale(1.5);
+  }
+}

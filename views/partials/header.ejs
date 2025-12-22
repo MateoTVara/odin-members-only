@@ -1,9 +1,14 @@
 <header>
-  <h1><a href="/">Members <span>Only</span></a></h1>
-  <% if (!user) { %>
-    <a href="/auth">Login</a>
-  <% } else { %>
-    <a href="/join">Join the club!</a>
-    <a href="/logout">Logout</a>
-  <% } %>
+  <nav>
+    <h1><a href="/">Members <span>Only</span></a></h1>
+    <p class="username"><%= user ? user.username : 'Guest' %></p>
+    <div class="nav-links">
+      <% if (!user) { %>
+        <a class="nav-link auth" href="/auth">Login</a>
+      <% } else { %>
+        <a class="nav-link join" href="/join">Join the club!</a>
+        <a class="nav-link logout" href="/logout">Logout</a>
+      <% } %>
+    </div>
+  </nav>
 </header>
