@@ -23,7 +23,10 @@
           required
         ><%= typeof data !== 'undefined' ? data.message.trim() : ''.trim() %></textarea>
       </div>
-      <button type="submit" class="btn">Submit</button>
+      <div class="actions">
+        <a href="/" class="btn">Back to Home</a>
+        <button type="submit" class="btn">Post Message</button>
+      </div>
     </form>
   </div>
 </main>

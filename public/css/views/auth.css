@@ -1,0 +1,32 @@
+.login-form {
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.signup-form {
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > button {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
