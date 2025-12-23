@@ -10,4 +10,8 @@
   --color-accent-2: #D2A8FF;
   --color-success: #3FB950;
   --color-danger: #FF6A6A;
+
+  --error-bg-color: #FFEBEB;
+  --error-text-color: #D8000C;
+  --error-border-color: #D8000C;
 }

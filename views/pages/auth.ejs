@@ -1,6 +1,5 @@
-<%- include('../partials/errors', { errors }) %>
-
 <main>
+  <%- include('../partials/errors', { errors }) %>
   <div class="form-container" data-active-form="<%= typeof data !== 'undefined' && (data.first_name || data.signup_username) ? 'signup' : 'login' %>">
     <div class="login-form form-section">
       <h2 class="form-title">Login</h2>

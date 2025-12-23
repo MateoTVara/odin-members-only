@@ -1,0 +1,38 @@
+.error-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.error-message {
+  background-color: var(--error-bg-color);
+  color: var(--error-text-color);
+  border: 1px solid var(--error-border-color);
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 250px;
+  max-width: 250px;
+
+  &.removed {
+    animation: remove-error 0.5s ease-out forwards;
+  }
+}
+
+@keyframes remove-error {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

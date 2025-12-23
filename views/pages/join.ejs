@@ -1,6 +1,6 @@
 <%- include('../partials/header', { user }) %>
-<%- include('../partials/errors', { errors }) %>
 <main>
+  <%- include('../partials/errors', { errors }) %>
   <div class="form-container">
     <% if (user.is_admin) { %>
       <p class="form-title">You are already an admin!</p>

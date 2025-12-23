@@ -2,6 +2,7 @@
 @import url('./vars.css');
 @import url('./header.css');
 @import url('./forms.css');
+@import url('./errors.css');
 @import url('./views/join.css');
 @import url('./views/auth.css');
 
@@ -19,6 +20,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: start;
+  position: relative;
 }
 
 .messages {
